@@ -15,31 +15,33 @@ public class Movement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    void AnimMoveDirection(float dir)
+    {
+        if (dir < 0)
+        {
+            anim.SetBool("isLeft", true);
+            anim.SetBool("isStopped", false);
+            anim.SetBool("isRight", false);
+        } else if (dir > 0)
+        {
+            anim.SetBool("isLeft", false);
+            anim.SetBool("isStopped", false);
+            anim.SetBool("isRight", true);
+        } else if (dir == 0)
+        {
+            anim.SetBool("isLeft", false);
+            anim.SetBool("isStopped", true);
+            anim.SetBool("isRight", false);
+        }
+
+    }
+
 
     private void FixedUpdate()
     {
         input = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         rb.MovePosition(transform.position + input * Time.deltaTime * speed);
         float direction = input.x;
-        if (direction < 0)
-        {
-            anim.SetBool("isLeft", true);
-            anim.SetBool("isStopped", false);
-            anim.SetBool("isRight", false);
-        }
-
-        if (direction > 0)
-        {
-            anim.SetBool("isLeft", false);
-            anim.SetBool("isStopped", false);
-            anim.SetBool("isRight", true);
-        }
-
-        if (direction == 0)
-        {
-            anim.SetBool("isLeft", false);
-            anim.SetBool("isStopped", true);
-            anim.SetBool("isRight", false);
-        }
+        AnimMoveDirection(direction);
     }
 }

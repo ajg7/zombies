@@ -10,10 +10,12 @@ public class Zombie : MonoBehaviour
     Animator anim;
     [SerializeField] NavMeshAgent agent;
     IObjectPool<Zombie> zombiePool;
+    ParticleSystem blood;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        blood = GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
@@ -29,6 +31,7 @@ public class Zombie : MonoBehaviour
             agent.isStopped = true;
             anim.SetBool("isDead", true);
             zombiePool?.Release(this);
+            blood.Play();
         }
     }
 

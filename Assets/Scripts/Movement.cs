@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -50,6 +51,12 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.tag == "Zombie")
         {
             anim.SetBool("isDead", true);
+            Invoke("LoadDeathMenu", 5f);
         }
+    }
+
+    void LoadDeathMenu()
+    {
+        SceneManager.LoadScene("DeathMenu");
     }
 }

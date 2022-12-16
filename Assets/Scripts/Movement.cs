@@ -39,9 +39,18 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        input = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        input = anim.GetBool("isDead") ? new Vector3(0, 0, 0) : new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         rb.MovePosition(transform.position + input * Time.deltaTime * speed);
         float direction = input.x;
         AnimMoveDirection(direction);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.tag == "Zombie")
+        {
+            anim.SetBool("isDead", true);
+        }
     }
 }

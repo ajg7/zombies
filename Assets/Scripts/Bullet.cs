@@ -7,12 +7,6 @@ public class Bullet : MonoBehaviour
 {
     IObjectPool<Bullet> pool;
     [SerializeField] private Vector3 speed;
-    Score score = new Score();
-
-    private void Start()
-    {
-        score.KillCount = 0;
-    }
 
     private void Update()
     {
@@ -28,7 +22,6 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Zombie")
         {
-            score.KillCount += 1;
             pool?.Release(this);
         }
     }
